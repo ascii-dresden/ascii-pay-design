@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import csv
 import qrcode
+import os
 
 
 def create_images(data_path, destination):
@@ -23,10 +24,15 @@ def create_images(data_path, destination):
     pin_size = 10
     # qr code values
     qr_pos = 63
-    # set save destination
+    # set save location for images
     save_destination = destination
     if save_destination is None:
         save_destination = "./images/results/"
+    if not os.path.isdir("./images/results/"):
+        os.mkdir(save_destination)
+    # check/set save location for qr codes
+    if not os.path.isdir("./images/qr-codes/"):
+        os.mkdir("./images/qr-codes/")
 
     with open(data_path) as csvFile:
         data = csv.reader(csvFile)
